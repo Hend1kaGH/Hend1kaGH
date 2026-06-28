@@ -1,6 +1,5 @@
-name: Metrics Aesthetic
+name: Metrics Aesthetic Premium
 on:
-  # Berjalan otomatis setiap tengah malam
   schedule: [{cron: "0 0 * * *"}]
   workflow_dispatch:
   push: {branches: ["master", "main"]}
@@ -12,47 +11,49 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
-          # TOKEN
           token: ${{ secrets.METRICS_TOKEN }}
-          user: Hend1kaGH # PENTING: Ganti dengan username GitHub Anda
-
-          # ==========================================
-          # PENGATURAN DASAR & TEMA
-          # ==========================================
-          template: classic
-          base: header, activity, community, repositories, metadata
+          user: Hend1kaGH # Sudah disesuaikan dengan GitHub Anda
           config_timezone: Asia/Jakarta
-          config_theme: dark # Pilihan tema aesthetic: dark, tokyonight, dracula, atau transparent
-          config_animations: yes # Menambahkan animasi halus saat halaman dimuat
           
           # ==========================================
-          # PLUGIN 1: KALENDER KONTRIBUSI 3D (ISOMETRIC)
+          # PENGATURAN TAMPILAN (TEMA MODERN)
+          # ==========================================
+          template: classic
+          config_theme: tokyonight # Menggunakan tema Tokyonight yang sangat elegan
+          config_animations: yes
+          
+          # Kita matikan teks statistik bawaan yang terlalu padat di gambar sebelumnya
+          base: header, metadata
+          base_indepth: yes
+
+          # ==========================================
+          # VISUAL 1: KALENDER KONTRIBUSI 3D (ISOMETRIC)
           # ==========================================
           plugin_isocalendar: yes
-          plugin_isocalendar_duration: half-year # Ditampilkan setengah tahun agar tidak terlalu panjang/penuh
+          plugin_isocalendar_duration: half-year
 
           # ==========================================
-          # PLUGIN 2: STATISTIK BAHASA PEMROGRAMAN
+          # VISUAL 2: GRAFIK BAHASA PEMROGRAMAN MODERN
           # ==========================================
           plugin_languages: yes
-          plugin_languages_ignored: html, css, tex, less, dockerfile, makefile, shell # Mengabaikan bahasa pelengkap agar lebih fokus ke bahasa utama
+          plugin_languages_ignored: html, css, tex, less, dockerfile, makefile, shell
           plugin_languages_details: percentage, lines
           plugin_languages_sections: most-used
-          plugin_languages_indepth: yes # Menghitung secara akurat dari semua repositori Anda
+          plugin_languages_indepth: yes
+          plugin_languages_categories: programming # Hanya menampilkan bahasa pemrograman murni
 
           # ==========================================
-          # PLUGIN 3: KEBIASAAN NGODING (CODING HABITS)
+          # VISUAL 3: DIAGRAM KEBIASAAN NGODING
           # ==========================================
           plugin_habits: yes
-          plugin_habits_from: 200       # Mengambil 200 event terakhir
-          plugin_habits_days: 14        # Data 14 hari terakhir
-          plugin_habits_facts: yes      # Menampilkan fakta unik (misal: "Sering ngoding di pagi hari")
-          plugin_habits_charts: yes     # Menampilkan diagram garis yang elegan
+          plugin_habits_from: 200
+          plugin_habits_days: 14
+          plugin_habits_facts: yes
+          plugin_habits_charts: yes
 
           # ==========================================
-          # PLUGIN 4: PENCAPAIAN (ACHIEVEMENTS)
+          # VISUAL 4: BADGES PENCAPAIAN MINI
           # ==========================================
           plugin_achievements: yes
-          plugin_achievements_display: compact # "compact" membuat ikon lebih rapi dan tidak memakan tempat
+          plugin_achievements_display: compact
           plugin_achievements_secrets: yes
-          plugin_achievements_threshold: C # Hanya menampilkan pencapaian tier C ke atas
